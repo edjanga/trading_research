@@ -4,7 +4,7 @@ import pandas as pd
 class DB(object):
 
     """
-    Wrapper that eases connection to assets.db
+    Wrapper that eases connection to stocks.db
     """
     def __init__(self, db_name):
         try:
@@ -12,6 +12,9 @@ class DB(object):
             self.cur = self.conn.cursor()
         except sqlite3.OperationalError:
             print('Error while accessing the database')
+
+    def close(self):
+        self.conn.close()
 
     def assets_df(self,freq='daily'):
         query = "SELECT * FROM assets"
